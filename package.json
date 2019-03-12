@@ -1,0 +1,22 @@
+{
+  "name": "sanity-template-tools",
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "sanity-template": "./bin/sanity-template.js"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sanity.io <hello@sanity.io>",
+  "license": "MIT",
+  "dependencies": {
+    "html-entities": "^1.2.1",
+    "istextorbinary": "^2.5.1",
+    "lodash": "^4.17.11",
+    "mkdirp": "^0.5.1",
+    "mustache": "^3.0.1",
+    "yargs": "^13.2.2"
+  }
+}
