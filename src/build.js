@@ -41,7 +41,11 @@ async function build({ basedir, templateValues }) {
 
   console.log(`Read template directory...`);
   const files = await readDirRecursive(templateDir);
-  const relativeFiles = files.map(f => path.relative(templateDir, f));
+
+  // Ignore paths containing `/node_modules/`
+  const includeFiles = files.filter(file => !file.match(/\/node_modules\//));
+
+  const relativeFiles = includeFiles.map(f => path.relative(templateDir, f));
 
   console.log(`Start copying files...`);
   for (const f of relativeFiles) {
