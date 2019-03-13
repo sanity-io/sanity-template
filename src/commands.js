@@ -1,15 +1,14 @@
 const path = require("path");
-const build = require("./build");
+const api = require("./");
+
 const { readJsonFile } = require("./lib/fs");
 
 module.exports = {
   async build(basedir, params) {
-    let templateValues = {};
-    if (params.templateValues) {
-      templateValues = await readJsonFile(
-        path.resolve(basedir, params.templateValues)
-      );
-    }
-    return build({ basedir, templateValues });
+    return api.build({ basedir, templateValuesPath: params.templateValues });
+  },
+
+  async watch(basedir, params) {
+    return api.watch({ basedir, templateValuesPath: params.templateValues });
   }
 };

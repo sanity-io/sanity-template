@@ -28,5 +28,6 @@ function printUsage() {
   return `Usage: sanity-template <params> <command>
 
   Commands:
-    build`;
+    build
+    watch`;
 }

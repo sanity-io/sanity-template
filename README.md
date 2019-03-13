@@ -12,21 +12,38 @@ npm install sanity-template-tools -D
 
 ```sh
 npx sanity-template-tools build --template-values values.json
+npx sanity-template-tools watch --template-values values.json
 ```
 
 This will copy files from the `template` directory into the `build` (which should be gitignored). The files in the `build` directory will have template variables replaced (`<#<varName>#>`).
 
 ### Node.js API
 
+#### `build`
+
 ```js
 const { build } = require("sanity-template-tools");
 
-build({ basedir: "path/to/basedir", templateValues: { varName: "foo" } })
+build({
+  basedir: "path/to/basedir",
+  templateValuesPath: "template-values.json"
+})
   .then(() => console.log("successfully built"))
   .catch(err => console.error(err));
 ```
 
+#### `watch`
+
+```js
+const { watch } = require("sanity-template-tools");
+
+watch({
+  basedir: "path/to/basedir",
+  templateValuesPath: "template-values.json"
+}).catch(err => console.error(err));
+```
+
 ## TODO
 
-- [ ] Watch mode
+- [x] Watch mode
 - [ ] Manifest validation
