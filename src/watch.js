@@ -6,10 +6,11 @@ const { buildFile } = require("./lib/buildFile");
 const { watchFiles } = require("./lib/watchFiles");
 const { readJsonFile } = require("./lib/fs");
 
-async function watch(opts) {
+function watch(opts) {
   return new Promise((resolve, reject) => {
     if (!opts.basedir) {
-      throw new Error("Missing basedir");
+      reject(new Error("Missing basedir"));
+      return;
     }
 
     const templateDir = path.resolve(opts.basedir, "template");
