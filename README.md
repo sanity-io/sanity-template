@@ -47,3 +47,5 @@ watch({
 
 - [x] Watch mode
 - [ ] Manifest validation
+- [ ] Validate existence of dir paths (`sourceDir` and `targetDir`)
+- [ ] Make params for dir paths (`sourceDir` and `targetDir`)
