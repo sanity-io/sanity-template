@@ -1,12 +1,14 @@
 const fs = require("fs");
 const _mkdirp = require("mkdirp");
 const path = require("path");
+const _rimraf = require("rimraf");
 const { promisify } = require("util");
 
 const copyFile = promisify(fs.copyFile);
 const mkdirp = promisify(_mkdirp);
 const readdir = promisify(fs.readdir);
 const readFile = promisify(fs.readFile);
+const rimraf = promisify(_rimraf);
 const writeFile = promisify(fs.writeFile);
 
 async function readDirRecursive(dir) {
@@ -37,5 +39,6 @@ module.exports = {
   readDirRecursive,
   readFile,
   readJsonFile,
+  rimraf,
   writeFile
 };
