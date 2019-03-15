@@ -1,77 +1,77 @@
-const fs = require("fs");
-const path = require("path");
-const { from, merge, of } = require("rxjs");
-const { concatMap, filter, map, switchMap, tap } = require("rxjs/operators");
-const { buildFile } = require("./lib/buildFile");
-const { watchFiles } = require("./lib/watchFiles");
-const { readJsonFile, rimraf } = require("./lib/fs");
+const fs = require('fs')
+const path = require('path')
+const {from, merge, of} = require('rxjs')
+const {concatMap, filter, map, switchMap, tap} = require('rxjs/operators')
+const {buildFile} = require('./lib/buildFile')
+const {watchFiles} = require('./lib/watchFiles')
+const {readJsonFile, rimraf} = require('./lib/fs')
 
-function watch(opts) {
+function watch (opts) {
   if (!opts.basedir) {
-    reject(new Error("Missing basedir"));
-    return;
+    reject(new Error('Missing basedir'))
+    return
   }
 
-  const templateDir = path.resolve(opts.basedir, "template");
-  const buildDir = path.resolve(opts.basedir, "build");
+  const templateDir = path.resolve(opts.basedir, 'template')
+  const buildDir = path.resolve(opts.basedir, 'build')
 
-  const templateValuesPath = path.resolve(opts.basedir, opts.templateValuesPath);
+  const templateValuesPath = path.resolve(opts.basedir, opts.templateValuesPath)
 
-  const templateValuesPathChange$ = watchFiles(templateValuesPath);
+  const templateValuesPathChange$ = watchFiles(templateValuesPath)
 
   const templateValues$ = templateValuesPathChange$.pipe(
     concatMap(() => from(readJsonFile(templateValuesPath)))
-  );
+  )
 
   const templateFile$ = templateValues$.pipe(
     switchMap(templateValues =>
       watchFiles(templateDir, {
         ignored: /\/node_modules\//
       }).pipe(
-        map(({ type, file }) => ({
+        map(({type, file}) => ({
           type,
           file: path.relative(templateDir, file),
           templateValues
         }))
       )
     )
-  );
+  )
 
   const addOrChangedFile$ = templateFile$.pipe(
-    filter(({ type }) => ["add", "change"].indexOf(type) > -1)
-  );
+    filter(({type}) => ['add', 'change'].indexOf(type) > -1)
+  )
 
-  const unlinkFile$ = templateFile$.pipe(filter(({ type }) => type === "unlink"));
+  const unlinkFile$ = templateFile$.pipe(filter(({type}) => type === 'unlink'))
 
   const builtFile$ = addOrChangedFile$.pipe(
-    concatMap(({ file, templateValues }) => {
-      const fromPath = path.resolve(templateDir, file);
-      const toPath = path.resolve(buildDir, file);
-      const isFile = fs.statSync(fromPath).isFile();
+    concatMap(({file, templateValues}) => {
+      const fromPath = path.resolve(templateDir, file)
+      const toPath = path.resolve(buildDir, file)
+      const isFile = fs.statSync(fromPath).isFile()
       if (isFile) {
         return from(
           buildFile(fromPath, toPath, templateValues).then(() => ({
-            type: "built",
+            type: 'built',
             file
           }))
-        );
+        )
       }
-      return of({ type: "ignore", file });
+      return of({type: 'ignore', file})
     })
-  );
+  )
 
   const unlinkedFile$ = unlinkFile$.pipe(
-    concatMap(({ file }) =>
+    concatMap(({file}) =>
       from(
         rimraf(path.resolve(buildDir, file)).then(() => ({
-          type: "unlinked",
+          type: 'unlinked',
           file
         }))
       )
     )
-  );
+  )
 
-  return merge(builtFile$, unlinkedFile$);
+  return merge(builtFile$, unlinkedFile$)
 }
 
-module.exports = watch;
+module.exports = watch

@@ -1,4 +1,4 @@
-const build = require("./build");
-const watch = require("./watch");
+const build = require('./build')
+const watch = require('./watch')
 
-module.exports = { build, watch };
+module.exports = {build, watch}
