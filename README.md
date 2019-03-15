@@ -10,10 +10,13 @@ npm install sanity-template-tools -D
 
 `sanity-template-tools` exposes both a command line interface and a Node.js API.
 
-### Command line interface
+### CLI
 
 ```sh
+# Build template files from `template/` to `build/`
 npx sanity-template build --template-values values.json
+
+# The same, but in watch mode
 npx sanity-template watch --template-values values.json
 ```
 
