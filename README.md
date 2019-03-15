@@ -13,8 +13,8 @@ npm install sanity-template-tools -D
 ### Command line interface
 
 ```sh
-npx sanity-template-tools build --template-values values.json
-npx sanity-template-tools watch --template-values values.json
+npx sanity-template build --template-values values.json
+npx sanity-template watch --template-values values.json
 ```
 
 This will copy files from the `template` directory into the `build` (which should be gitignored). The files in the `build` directory will have template variables replaced (`<#<varName>#>`).
