@@ -8,10 +8,7 @@ const entities = new Entities.AllHtmlEntities();
 function deepRenderStrings(value, templateVars) {
   const name = typeof value;
   if (name === "string") {
-    const renderedString = Mustache.render(value, templateVars, {}, [
-      "<#<",
-      ">#>"
-    ]);
+    const renderedString = Mustache.render(value, templateVars, {}, ["<#<", ">#>"]);
     return entities.decode(renderedString);
   }
 

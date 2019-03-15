@@ -6,9 +6,7 @@ async function build({ basedir, templateValuesPath }) {
   let templateValues = {};
 
   if (templateValuesPath) {
-    templateValues = await readJsonFile(
-      path.resolve(basedir, templateValuesPath)
-    );
+    templateValues = await readJsonFile(path.resolve(basedir, templateValuesPath));
   }
 
   if (!basedir) {
@@ -27,11 +25,7 @@ async function build({ basedir, templateValuesPath }) {
   const relativeFiles = includeFiles.map(f => path.relative(templateDir, f));
 
   for (const f of relativeFiles) {
-    await buildFile(
-      path.resolve(templateDir, f),
-      path.resolve(buildDir, f),
-      templateValues
-    );
+    await buildFile(path.resolve(templateDir, f), path.resolve(buildDir, f), templateValues);
   }
 
   return relativeFiles;

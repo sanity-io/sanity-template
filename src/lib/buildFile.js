@@ -17,9 +17,7 @@ async function buildFile(fromPath, toPath, templateValues) {
       : replaceVars(fromPath, buf.toString("utf8"), templateValues || {});
     return writeFile(toPath, contents);
   } catch (err) {
-    console.warn(
-      `WARNING: Writing went wrong in: ${fromPath} (original error below)`
-    );
+    console.warn(`WARNING: Writing went wrong in: ${fromPath} (original error below)`);
     console.warn(err);
     return copyFile(fromPath, toPath);
   }

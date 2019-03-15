@@ -15,10 +15,7 @@ function watch(opts) {
   const templateDir = path.resolve(opts.basedir, "template");
   const buildDir = path.resolve(opts.basedir, "build");
 
-  const templateValuesPath = path.resolve(
-    opts.basedir,
-    opts.templateValuesPath
-  );
+  const templateValuesPath = path.resolve(opts.basedir, opts.templateValuesPath);
 
   const templateValuesPathChange$ = watchFiles(templateValuesPath);
 
@@ -44,9 +41,7 @@ function watch(opts) {
     filter(({ type }) => ["add", "change"].indexOf(type) > -1)
   );
 
-  const unlinkFile$ = templateFile$.pipe(
-    filter(({ type }) => type === "unlink")
-  );
+  const unlinkFile$ = templateFile$.pipe(filter(({ type }) => type === "unlink"));
 
   const builtFile$ = addOrChangedFile$.pipe(
     concatMap(({ file, templateValues }) => {
