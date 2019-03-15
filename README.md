@@ -3,8 +3,10 @@
 Tooling for making it smoother to create sanity templates.
 
 ```sh
-npm install sanity-template-tools -D
+npm install sanity-template-tools --save-dev
 ```
+
+[![npm version](https://img.shields.io/npm/v/sanity-template-tools.svg?style=flat-square)](https://www.npmjs.com/package/sanity-template-tools)
 
 ## Documentation
 
