@@ -26,6 +26,8 @@ This will copy files from the `template` directory into the `build` (which shoul
 
 #### `build`
 
+The `build` method returns a `Promise` instance:
+
 ```js
 const { build } = require("sanity-template-tools");
 
@@ -39,13 +41,18 @@ build({
 
 #### `watch`
 
+The `watch` method returns an RxJS `Observable` instance:
+
 ```js
 const { watch } = require("sanity-template-tools");
 
 watch({
   basedir: "path/to/basedir",
   templateValuesPath: "template-values.json"
-}).catch(err => console.error(err));
+}).subscribe({
+  next: ({ type, file }) => console.log(`${type}: ${file}`),
+  error: err => console.error(err)
+});
 ```
 
 ## TODO
