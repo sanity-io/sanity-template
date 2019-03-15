@@ -1,6 +1,6 @@
 # sanity-template-tools
 
-Tooling for making it smoother to build sanity templates.
+Tooling for making it smoother to create sanity templates.
 
 ```sh
 npm install sanity-template-tools -D
