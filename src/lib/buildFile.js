@@ -13,7 +13,7 @@ async function buildFile (fromPath, toPath, templateValues) {
 
   try {
     const contents = isBinary
-      ? buf.toString('utf8')
+      ? buf
       : replaceVars(fromPath, buf.toString('utf8'), templateValues || {})
     return writeFile(toPath, contents)
   } catch (err) {
