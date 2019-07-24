@@ -2,8 +2,6 @@ const chalk = require('chalk')
 const path = require('path')
 const api = require('./')
 
-const {readJsonFile} = require('./lib/fs')
-
 module.exports = {
   async build(basedir, params) {
     return api.build({basedir, templateValuesPath: params.templateValues}).then(files => {
@@ -30,6 +28,15 @@ module.exports = {
         error: reject,
         complete: resolve
       })
+    })
+  },
+  lockfiles: basedir => {
+    console.log('Generating lockfiles by running npm install in template dirs…')
+    return api.generateLockFiles({basedir}).then(directories => {
+      console.log('Generated lockfiles in: ')
+      directories.forEach(info =>
+        console.log(`\t${chalk.green(path.join(info.dir, '/package-lock.json'))}`)
+      )
     })
   }
 }
