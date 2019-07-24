@@ -11,7 +11,7 @@ const readFile = promisify(fs.readFile)
 const rimraf = promisify(_rimraf)
 const writeFile = promisify(fs.writeFile)
 
-async function readDirRecursive (dir) {
+async function readDirRecursive(dir) {
   const files = await readdir(dir)
   const filesInfo = await Promise.all(
     files.map(file => {
@@ -28,7 +28,7 @@ async function readDirRecursive (dir) {
   return filesInfo.reduce((acc, arr) => acc.concat(arr), [])
 }
 
-async function readJsonFile (filePath) {
+async function readJsonFile(filePath) {
   const buf = await readFile(filePath)
   return JSON.parse(buf.toString('utf-8'))
 }

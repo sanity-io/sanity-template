@@ -2,7 +2,7 @@ const path = require('path')
 const {readDirRecursive, readJsonFile} = require('./lib/fs')
 const {buildFile} = require('./lib/buildFile')
 
-async function build ({basedir, templateValuesPath}) {
+async function build({basedir, templateValuesPath}) {
   let templateValues = {}
 
   if (templateValuesPath) {

@@ -5,7 +5,7 @@ const path = require('path')
 
 const entities = new Entities.AllHtmlEntities()
 
-function deepRenderStrings (value, templateVars) {
+function deepRenderStrings(value, templateVars) {
   const name = typeof value
   if (name === 'string') {
     const renderedString = Mustache.render(value, templateVars, {}, ['<#<', '>#>'])
@@ -29,7 +29,7 @@ function deepRenderStrings (value, templateVars) {
   }
 }
 
-function replaceVars (filePath, content, templateVars) {
+function replaceVars(filePath, content, templateVars) {
   const isJson = path.extname(filePath) === '.json'
   if (isJson) {
     const renderedJson = deepRenderStrings(JSON.parse(content), templateVars)

@@ -16,7 +16,7 @@ if (cmd) {
   }
 }
 
-function panic (err) {
+function panic(err) {
   if (err) {
     console.error(err)
   }
@@ -24,7 +24,7 @@ function panic (err) {
   process.exit(1)
 }
 
-function printUsage () {
+function printUsage() {
   return `Usage: sanity-template <params> <command>
 
   Commands:

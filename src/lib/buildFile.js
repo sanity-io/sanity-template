@@ -3,7 +3,7 @@ const path = require('path')
 const {copyFile, mkdirp, readFile, writeFile} = require('./fs')
 const {replaceVars} = require('./replaceVars')
 
-async function buildFile (fromPath, toPath, templateValues) {
+async function buildFile(fromPath, toPath, templateValues) {
   const dir = path.dirname(toPath)
 
   await mkdirp(dir)

@@ -6,7 +6,7 @@ const {buildFile} = require('./lib/buildFile')
 const {watchFiles} = require('./lib/watchFiles')
 const {readJsonFile, rimraf} = require('./lib/fs')
 
-function watch (opts) {
+function watch(opts) {
   if (!opts.basedir) {
     reject(new Error('Missing basedir'))
     return
