@@ -29,5 +29,6 @@ function printUsage() {
 
   Commands:
     build
-    watch`
+    watch
+    lockfiles`
 }
