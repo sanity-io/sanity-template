@@ -7,7 +7,8 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "format": "prettier-eslint --write \"**/*.js\" \"!node_modules/**\""
+    "format": "prettier-eslint --write \"**/*.js\" \"!node_modules/**\"",
+    "test": "jest --verbose"
   },
   "engines": {
     "node": ">=10.0.0"
@@ -27,6 +28,7 @@
     "chokidar": "^2.1.2",
     "html-entities": "^1.2.1",
     "istextorbinary": "^2.5.1",
+    "jsonschema": "^1.2.4",
     "lodash": "^4.17.15",
     "mkdirp": "^0.5.1",
     "mustache": "^3.0.1",
@@ -44,6 +46,7 @@
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
+    "jest": "^24.8.0",
     "prettier-eslint-cli": "^4.7.1"
   }
 }

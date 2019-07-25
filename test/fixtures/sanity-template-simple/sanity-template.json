@@ -1,0 +1,22 @@
+{
+  "version": 0,
+  "title": "Foo",
+  "description": "Foo",
+  "deployments": [
+    {
+      "id": "studio",
+      "type": "studio",
+      "title": "Studio",
+      "description": "Studio",
+      "dir": "studio",
+      "provider": {
+        "name": "netlify"
+      }
+    }
+  ],
+  "previewMedia": {
+    "type": "image",
+    "src": "foo.jpg",
+    "alt": "foo"
+  }
+}

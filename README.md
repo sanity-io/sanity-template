@@ -12,7 +12,7 @@ npm install sanity-template --save-dev
 
 WARNING: Not ready for public consumption
 
-- [Template manifest specification (v0)](SPEC-MANIFEST-V0.md) 
+- [Template manifest specification (v0)](SPEC-MANIFEST-V0.md)
 
 ## Documentation
 
@@ -26,6 +26,9 @@ npx sanity-template build --template-values values.json
 
 # The same, but in watch mode
 npx sanity-template watch --template-values values.json
+
+# Check if the template is valid
+npx sanity-template check
 ```
 
 This will copy files from the `template` directory into the `build` (which should be gitignored). The files in the `build` directory will have template variables replaced (`<#<varName>#>`).
@@ -37,7 +40,7 @@ This will copy files from the `template` directory into the `build` (which shoul
 The `build` method returns a `Promise` instance:
 
 ```js
-const { build } = require("sanity-template");
+const {build} = require("sanity-template");
 
 build({
   basedir: "path/to/basedir",
@@ -52,7 +55,7 @@ build({
 The `watch` method returns an RxJS `Observable` instance:
 
 ```js
-const { watch } = require("sanity-template");
+const {watch} = require("sanity-template");
 
 watch({
   basedir: "path/to/basedir",
@@ -63,10 +66,29 @@ watch({
 });
 ```
 
+#### `check`
+
+The `check` method returns a `Promise` instance (however you need to check result value for status):
+
+```js
+const {check} = require("sanity-template");
+
+check({
+  basedir: "path/to/basedir"
+})
+  .then(({errors, isSuccess}) => {
+    if (isSuccess) {
+      console.log("the template is valid")
+    } else {
+      console.error(errors)
+    }
+  })
+```
+
 ## TODO
 
 - [x] Watch mode
-- [ ] Manifest validation
+- [x] Manifest validation
 - [ ] Validate existence of dir paths (`sourceDir` and `targetDir`)
 - [ ] Make params for dir paths (`sourceDir` and `targetDir`)
 

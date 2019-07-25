@@ -30,13 +30,25 @@ module.exports = {
       })
     })
   },
-  lockfiles: basedir => {
+
+  async lockfiles(basedir) {
     console.log('Generating lockfiles by running npm install in template dirs…')
-    return api.generateLockFiles({basedir}).then(directories => {
-      console.log('Generated lockfiles in: ')
-      directories.forEach(info =>
-        console.log(`\t${chalk.green(path.join(info.dir, '/package-lock.json'))}`)
-      )
-    })
+    const directories = await api.generateLockFiles({basedir})
+
+    console.log('Generated lockfiles in: ')
+    directories.forEach(info =>
+      console.log(`\t${chalk.green(path.join(info.dir, '/package-lock.json'))}`)
+    )
+  },
+
+  async check(basedir) {
+    const result = await api.check({basedir})
+
+    if (result.errors.length) {
+      console.error(result.errors.map(err => err.stack).join('\n'))
+      throw new Error('validation failed')
+    }
+
+    // success
   }
 }
