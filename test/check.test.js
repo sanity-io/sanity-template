@@ -2,11 +2,13 @@ const path = require('path')
 const api = require('../src')
 const cli = require('../src/commands')
 
+const fixturePath = p => path.join(__dirname, 'fixtures', p)
+
 describe('check', () => {
   describe('CLI', () => {
     it('should not validate when missing manifest', async () => {
       const mockFn = jest.fn()
-      const basedir = path.resolve(__dirname, './fixtures/sanity-template-empty')
+      const basedir = fixturePath('sanity-template-empty')
 
       try {
         await cli.check(basedir, {})
@@ -18,17 +20,17 @@ describe('check', () => {
     })
 
     it('should validate minimal manifest', async () => {
-      const basedir = path.resolve(__dirname, './fixtures/sanity-template-minimal')
+      const basedir = fixturePath('sanity-template-minimal')
       await cli.check(basedir, {})
     })
 
     it('should validate simple manifest', async () => {
-      const basedir = path.resolve(__dirname, './fixtures/sanity-template-simple')
+      const basedir = fixturePath('sanity-template-simple')
       await cli.check(basedir, {})
     })
 
     it('should validate advanced manifest', async () => {
-      const basedir = path.resolve(__dirname, './fixtures/sanity-template-advanced')
+      const basedir = fixturePath('sanity-template-advanced')
       await cli.check(basedir, {})
     })
   })
@@ -36,7 +38,7 @@ describe('check', () => {
   describe('Node.js API', () => {
     it('should validate minimal manifest', async () => {
       const result = await api.check({
-        basedir: path.resolve(__dirname, 'fixtures/sanity-template-minimal')
+        basedir: fixturePath('sanity-template-minimal')
       })
 
       expect(result.errors.length).toBe(0)
@@ -44,7 +46,7 @@ describe('check', () => {
 
     it('should validate simple manifest', async () => {
       const result = await api.check({
-        basedir: path.resolve(__dirname, 'fixtures/sanity-template-simple')
+        basedir: fixturePath('sanity-template-simple')
       })
 
       expect(result.errors.length).toBe(0)
@@ -52,7 +54,7 @@ describe('check', () => {
 
     it('should validate advanced manifest', async () => {
       const result = await api.check({
-        basedir: path.resolve(__dirname, 'fixtures/sanity-template-advanced')
+        basedir: fixturePath('sanity-template-advanced')
       })
 
       expect(result.errors.length).toBe(0)
