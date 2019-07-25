@@ -9,7 +9,15 @@ exports.temporaryTransformPackage = (
   const originalContents = fs.readFileSync(pkgPath, 'utf-8')
   const pkgDef = JSON.parse(originalContents)
   fs.writeFileSync(pkgPath, JSON.stringify(transform(pkgDef)))
-  return () => {
+  let restored = false
+  const restore = () => {
+    if (restored) {
+      return
+    }
+    restored = true
+    process.off('exit', restore)
     fs.writeFileSync(pkgPath, originalContents)
   }
+  process.on('exit', restore)
+  return restore
 }
