@@ -1,7 +1,7 @@
 {
   "version": 0,
-  "title": "Foo",
-  "description": "Foo",
+  "title": "Sanity Simple",
+  "description": "Sanity Simple",
   "deployments": [
     {
       "id": "studio",
