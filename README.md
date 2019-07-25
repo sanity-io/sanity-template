@@ -85,13 +85,6 @@ check({
   })
 ```
 
-## TODO
-
-- [x] Watch mode
-- [x] Manifest validation
-- [ ] Validate existence of dir paths (`sourceDir` and `targetDir`)
-- [ ] Make params for dir paths (`sourceDir` and `targetDir`)
-
 ## License
 
 [MIT](LICENSE) © [Sanity.io](https://www.sanity.io)
