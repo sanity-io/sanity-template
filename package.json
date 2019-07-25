@@ -7,8 +7,7 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "format": "prettier-eslint --write \"**/*.js\" \"!node_modules/**\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "prettier-eslint --write \"**/*.js\" \"!node_modules/**\""
   },
   "engines": {
     "node": ">=10.0.0"
