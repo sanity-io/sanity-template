@@ -8,11 +8,15 @@ npm install sanity-template --save-dev
 
 [![npm version](https://img.shields.io/npm/v/sanity-template.svg?style=flat-square)](https://www.npmjs.com/package/sanity-template)
 
-`sanity-template` exposes both a command line interface and a Node.js API.
+## Specification
 
-### Specfication
 WARNING: Not ready for public consumption
+
 - [Template manifest specification (v0)](SPEC-MANIFEST-V0.md) 
+
+## Documentation
+
+`sanity-template` is an npm module which exposes both a CLI and a Node.js API.
 
 ### CLI
 
