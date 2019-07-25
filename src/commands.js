@@ -50,5 +50,6 @@ module.exports = {
     }
 
     // success
+    console.log(chalk.green(`✓ template directory is valid: ${basedir}`))
   }
 }
