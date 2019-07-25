@@ -5,11 +5,17 @@ const _rimraf = require('rimraf')
 const {promisify} = require('util')
 
 const copyFile = promisify(fs.copyFile)
+const lstat = promisify(fs.lstat)
 const mkdirp = promisify(_mkdirp)
 const readdir = promisify(fs.readdir)
 const readFile = promisify(fs.readFile)
 const rimraf = promisify(_rimraf)
 const writeFile = promisify(fs.writeFile)
+
+async function isDirectory(filePath) {
+  const stats = await lstat(filePath)
+  return stats.isDirectory()
+}
 
 async function readDirRecursive(dir) {
   const files = await readdir(dir)
@@ -35,6 +41,8 @@ async function readJsonFile(filePath) {
 
 module.exports = {
   copyFile,
+  isDirectory,
+  lstat,
   mkdirp,
   readDirRecursive,
   readFile,

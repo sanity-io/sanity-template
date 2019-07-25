@@ -96,6 +96,7 @@ interface DeploymentDeclaration {
       dir?: string;
       cmd?: string;
     };
+    requirements?: NetlifyRequirement[];
   };
   // optional fields
   previewMedia?: Media;
@@ -118,6 +119,12 @@ interface Image {
 
 ```ts
 type Media = Image;
+```
+
+### `NetlifyRequirement`
+
+```ts
+type NetlifyRequirement = "build-hook"
 ```
 
 ### `SanityCorsOriginDeclaration`

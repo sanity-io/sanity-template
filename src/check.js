@@ -1,5 +1,6 @@
 const {Validator} = require('jsonschema')
 const path = require('path')
+const {isDirectory} = require('./lib/fs')
 
 const validator = new Validator()
 const v0schema = {
@@ -55,7 +56,8 @@ const v0schema = {
             dir: {type: 'string'},
             cmd: {type: 'string'}
           }
-        }
+        },
+        requirements: {type: 'array', items: {type: 'string', enum: ['build-hook']}}
       },
       required: ['name'],
       additionalProperties: false
@@ -101,13 +103,32 @@ const v0schema = {
   }
 }
 
-async function validateV0({manifest}) {
-  const result = validator.validate(manifest, v0schema)
-  const isSuccess = result.errors.length === 0
+async function validateV0({basedir, manifest}) {
+  const validationResult = validator.validate(manifest, v0schema)
+  const validationIsSuccess = validationResult.errors.length === 0
+
+  const manifestValidation = {
+    errors: validationResult.errors,
+    isSuccess: validationIsSuccess
+  }
+
+  const templatePath = path.resolve(
+    basedir,
+    (manifest.paths && manifest.paths.template) || 'template'
+  )
+
+  let templatePathValidation
+  try {
+    const templateIsDir = await isDirectory(templatePath)
+    if (!templateIsDir) throw new Error(`not a directory: ${templatePath}`)
+    templatePathValidation = {errors: [], isSuccess: true}
+  } catch (err) {
+    templatePathValidation = {errors: [err], isSuccess: false}
+  }
 
   return {
-    errors: result.errors,
-    isSuccess
+    errors: manifestValidation.errors.concat(templatePathValidation.errors),
+    isSuccess: manifestValidation.isSuccess && templatePathValidation.isSuccess
   }
 }
 

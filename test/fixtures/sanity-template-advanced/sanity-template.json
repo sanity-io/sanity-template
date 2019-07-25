@@ -4,7 +4,7 @@
   "description": "Foo",
   "paths": {
     "template": "./template",
-    "build": "./build"
+    "build": "./dist"
   },
   "deployments": [
     {
@@ -19,7 +19,8 @@
           "base": "studio",
           "dir": ".",
           "cmd": "npm run build"
-        }
+        },
+        "requirements": ["build-hook"]
       },
       "previewMedia": {
         "type": "image",
