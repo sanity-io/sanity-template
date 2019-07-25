@@ -1,6 +1,6 @@
-# sanity-template-tools
+# sanity-template
 
-Tooling for making it smoother to create sanity templates.
+Sanity template developer tools, documentation and specification.
 
 ```sh
 npm install sanity-template-tools --save-dev
@@ -8,9 +8,11 @@ npm install sanity-template-tools --save-dev
 
 [![npm version](https://img.shields.io/npm/v/sanity-template-tools.svg?style=flat-square)](https://www.npmjs.com/package/sanity-template-tools)
 
-## Documentation
-
 `sanity-template-tools` exposes both a command line interface and a Node.js API.
+
+### Specfication
+WARNING: Not ready for public consumption
+- [Template manifest specification (v0)](SPEC-MANIFEST-V0.md) 
 
 ### CLI
 
