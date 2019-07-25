@@ -3,12 +3,12 @@
 Sanity template developer tools, documentation and specification.
 
 ```sh
-npm install sanity-template-tools --save-dev
+npm install sanity-template --save-dev
 ```
 
-[![npm version](https://img.shields.io/npm/v/sanity-template-tools.svg?style=flat-square)](https://www.npmjs.com/package/sanity-template-tools)
+[![npm version](https://img.shields.io/npm/v/sanity-template.svg?style=flat-square)](https://www.npmjs.com/package/sanity-template)
 
-`sanity-template-tools` exposes both a command line interface and a Node.js API.
+`sanity-template` exposes both a command line interface and a Node.js API.
 
 ### Specfication
 WARNING: Not ready for public consumption
@@ -33,7 +33,7 @@ This will copy files from the `template` directory into the `build` (which shoul
 The `build` method returns a `Promise` instance:
 
 ```js
-const { build } = require("sanity-template-tools");
+const { build } = require("sanity-template");
 
 build({
   basedir: "path/to/basedir",
@@ -48,7 +48,7 @@ build({
 The `watch` method returns an RxJS `Observable` instance:
 
 ```js
-const { watch } = require("sanity-template-tools");
+const { watch } = require("sanity-template");
 
 watch({
   basedir: "path/to/basedir",

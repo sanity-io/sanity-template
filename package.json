@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sanity-io/sanity-template-tools.git"
+    "url": "git+https://github.com/sanity-io/sanity-template.git"
   },
   "author": "Sanity.io <hello@sanity.io>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sanity-io/sanity-template-tools/issues"
+    "url": "https://github.com/sanity-io/sanity-template/issues"
   },
-  "homepage": "https://github.com/sanity-io/sanity-template-tools#readme",
+  "homepage": "https://github.com/sanity-io/sanity-template#readme",
   "dependencies": {
     "chalk": "^2.4.2",
     "chokidar": "^2.1.2",
