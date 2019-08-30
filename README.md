@@ -50,6 +50,10 @@ build({
   .catch(err => console.error(err));
 ```
 
+#### `lockfiles`
+
+This will generate lockfiles in all your template's deployment directory. Generating package-lock.json files will reduce build time.
+
 #### `watch`
 
 The `watch` method returns an RxJS `Observable` instance:
