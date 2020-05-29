@@ -1,7 +1,7 @@
 const {kebabCase} = require('lodash')
 
-const {temporaryTransformPackage} = require('./lib/temporaryTransformPackage')
-const {runNpmInstall} = require('./lib/runNpmInstall')
+const {temporaryTransformPackage} = require('./utils/temporaryTransformPackage')
+const {runNpmInstall} = require('./utils/runNpmInstall')
 
 const path = require('path')
 

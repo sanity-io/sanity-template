@@ -1,10 +1,10 @@
 const fs = require('fs')
 const path = require('path')
 const {from, merge, of} = require('rxjs')
-const {concatMap, filter, map, switchMap, tap} = require('rxjs/operators')
-const {buildFile} = require('./lib/buildFile')
-const {watchFiles} = require('./lib/watchFiles')
-const {readJsonFile, rimraf} = require('./lib/fs')
+const {concatMap, filter, map, switchMap} = require('rxjs/operators')
+const {buildFile} = require('./utils/buildFile')
+const {watchFiles} = require('./utils/watchFiles')
+const {readJsonFile, rimraf} = require('./utils/fs')
 
 function watch(opts) {
   if (!opts.basedir) {
@@ -24,14 +24,14 @@ function watch(opts) {
   )
 
   const templateFile$ = templateValues$.pipe(
-    switchMap(templateValues =>
+    switchMap((templateValues) =>
       watchFiles(templateDir, {
-        ignored: /\/node_modules\//
+        ignored: /\/node_modules\//,
       }).pipe(
         map(({type, file}) => ({
           type,
           file: path.relative(templateDir, file),
-          templateValues
+          templateValues,
         }))
       )
     )
@@ -52,7 +52,7 @@ function watch(opts) {
         return from(
           buildFile(fromPath, toPath, templateValues).then(() => ({
             type: 'built',
-            file
+            file,
           }))
         )
       }
@@ -65,7 +65,7 @@ function watch(opts) {
       from(
         rimraf(path.resolve(buildDir, file)).then(() => ({
           type: 'unlinked',
-          file
+          file,
         }))
       )
     )

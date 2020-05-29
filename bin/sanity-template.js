@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const argv = require('yargs').argv
-const commands = require('../src/commands')
+const commands = require('../src/commands/commands')
 
 const {_: args, ...rest} = argv
 const {$0: script, ...params} = rest

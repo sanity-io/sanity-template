@@ -1,6 +1,6 @@
 const path = require('path')
-const api = require('../src')
-const cli = require('../src/commands')
+const api = require('../')
+const cli = require('../commands')
 
 const fixturePath = p => path.join(__dirname, 'fixtures', p)
 

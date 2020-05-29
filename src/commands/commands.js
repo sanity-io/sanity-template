@@ -1,6 +1,6 @@
 const chalk = require('chalk')
 const path = require('path')
-const api = require('./')
+const api = require('./index')
 
 module.exports = {
   async build(basedir, params) {

@@ -5,7 +5,7 @@
   "bin": {
     "sanity-template": "./bin/sanity-template.js"
   },
-  "main": "src/index.js",
+  "main": "src/commands/index.js",
   "scripts": {
     "format": "prettier-eslint --write \"**/*.js\" \"!node_modules/**\"",
     "test": "jest --verbose"
@@ -47,6 +47,7 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "jest": "^24.8.0",
+    "prettier": "^2.0.5",
     "prettier-eslint-cli": "^4.7.1"
   }
 }
