@@ -13,6 +13,13 @@ export interface TemplateImageMedia {
   src: string
 }
 
+export interface TokenSpec {
+  role: 'deploy-studio' | 'read' | 'write'
+  label: string
+}
+
+export type SupportedDeploymentProvider = VercelDeployment | NetlifyDeployment
+
 export type TemplateMedia = TemplateImageMedia
 
 export interface TemplateManifest {
@@ -20,10 +27,7 @@ export interface TemplateManifest {
   title: string
   description: string
   previewMedia?: TemplateMedia
-  deployments: {
-    netlify?: NetlifyDeployment
-    vercel?: VercelDeployment
-  }
+  deployment?: SupportedDeploymentProvider
   technologies?: TemplateTechnology[]
 }
 

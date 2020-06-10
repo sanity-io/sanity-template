@@ -1,8 +1,9 @@
-import {SanityCorsOrigin, TemplateMedia} from './manifest'
+import {SanityCorsOrigin, TemplateMedia, TokenSpec} from './manifest'
 
 export type ProviderRequirement = 'build-hook' // Add future requirement flags here
 
 export interface NetlifyDeployment {
+  provider: 'netlify'
   sites: NetlifySite[]
 }
 
@@ -20,9 +21,4 @@ interface NetlifySite {
   requirements?: ProviderRequirement[]
   previewMedia?: TemplateMedia
   requiredCorsOrigins?: SanityCorsOrigin[]
-}
-
-export interface TokenSpec {
-  role: 'deploy-studio' | 'read' | 'write'
-  label: string
 }

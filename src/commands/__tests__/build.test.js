@@ -14,7 +14,7 @@ describe('build', () => {
   describe('CLI', () => {
     it('should build simple template', async () => {
       await cli.build(fixturePath('sanity-template-simple'), {
-        templateValues: 'template-values.json'
+        templateValues: 'build-options.json'
       })
     })
   })
@@ -25,7 +25,7 @@ describe('build', () => {
 
       await api.build({
         basedir,
-        templateValuesPath: 'template-values.json'
+        templateValuesPath: 'build-options.json'
       })
 
       const pkg = require(path.resolve(basedir, 'build/package.json'))
