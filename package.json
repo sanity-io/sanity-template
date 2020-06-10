@@ -5,7 +5,8 @@
   "bin": {
     "sanity-template": "./bin/sanity-template.js"
   },
-  "main": "src/commands/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "format": "prettier-eslint --write \"**/*.js\" \"!node_modules/**\"",
     "build": "tsc",

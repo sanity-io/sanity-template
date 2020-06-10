@@ -44,7 +44,7 @@ const {build} = require("sanity-template");
 
 build({
   basedir: "path/to/basedir",
-  templateValuesPath: "template-values.json"
+  templateValuesPath: "build-options.json"
 })
   .then(() => console.log("successfully built"))
   .catch(err => console.error(err));
@@ -59,7 +59,7 @@ const {watch} = require("sanity-template");
 
 watch({
   basedir: "path/to/basedir",
-  templateValuesPath: "template-values.json"
+  templateValuesPath: "build-options.json"
 }).subscribe({
   next: ({ type, file }) => console.log(`${type}: ${file}`),
   error: err => console.error(err)
