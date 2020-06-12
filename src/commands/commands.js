@@ -44,9 +44,16 @@ module.exports = {
   async check(basedir) {
     const result = await api.check({basedir})
 
-    if (result.errors.length) {
-      console.error(result.errors.map(err => err.stack).join('\n'))
-      throw new Error('validation failed')
+    if (result.type === 'invalid') {
+      console.error(
+        'Errors in sanity-template.json:\n%s',
+        result.errors
+          .map(
+            err => `\t${err.path.join('') || '<root>'}: ${err.message.split('\n').join(`\n\t\t`)}`
+          )
+          .join('\n')
+      )
+      process.exit(1)
     }
 
     // success

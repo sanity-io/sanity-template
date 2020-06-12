@@ -2,10 +2,6 @@
   "version": 0,
   "title": "Foo",
   "description": "Foo",
-  "paths": {
-    "template": "./template",
-    "build": "./dist"
-  },
   "deployments": [
     {
       "id": "studio",
@@ -36,6 +32,5 @@
     "src": "foo.jpg",
     "alt": "foo"
   },
-  "dataArchive": "./data/production.tar.gz",
   "technologies": [{"id": "sanity", "name": "Sanity", "url": "https://www.sanity.io"}]
 }
