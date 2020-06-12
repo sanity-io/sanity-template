@@ -1,7 +1,6 @@
 const path = require('path')
-const api = require('../src')
-const cli = require('../src/commands')
-const {rimraf} = require('../src/lib/fs')
+const api = require('../')
+const {rimraf} = require('../utils/fs')
 
 const fixturePath = p => path.join(__dirname, 'fixtures', p)
 
@@ -24,9 +23,7 @@ describe('lockfiles', () => {
     it('should genereate lockfiles for simple template', async () => {
       const basedir = fixturePath('sanity-template-simple')
 
-      await cli.lockfiles(basedir, {
-        templateValues: 'template-values.json'
-      })
+      await api.generateLockFiles(basedir)
 
       const pkgLock = require(path.resolve(basedir, 'template/package-lock.json'))
       const studioPkgLock = require(path.resolve(basedir, 'template/studio/package-lock.json'))
@@ -40,10 +37,7 @@ describe('lockfiles', () => {
     it('should genereate lockfiles for simple template', async () => {
       const basedir = fixturePath('sanity-template-simple')
 
-      await api.generateLockFiles({
-        basedir,
-        templateValuesPath: 'template-values.json'
-      })
+      await api.generateLockFiles(basedir)
 
       const pkgLock = require(path.resolve(basedir, 'template/package-lock.json'))
       const studioPkgLock = require(path.resolve(basedir, 'template/studio/package-lock.json'))

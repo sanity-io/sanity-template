@@ -11,7 +11,7 @@ describe('check', () => {
       const basedir = fixturePath('sanity-template-empty')
 
       try {
-        await cli.check(basedir, {})
+        await cli.check(basedir)
       } catch (err) {
         mockFn(err)
       }
@@ -21,17 +21,17 @@ describe('check', () => {
 
     it('should validate minimal manifest', async () => {
       const basedir = fixturePath('sanity-template-minimal')
-      await cli.check(basedir, {})
+      await cli.check(basedir)
     })
 
     it('should validate simple manifest', async () => {
       const basedir = fixturePath('sanity-template-simple')
-      await cli.check(basedir, {})
+      await cli.check(basedir)
     })
 
     it('should validate advanced manifest', async () => {
       const basedir = fixturePath('sanity-template-advanced')
-      await cli.check(basedir, {})
+      await cli.check(basedir)
     })
   })
 
@@ -41,7 +41,7 @@ describe('check', () => {
         basedir: fixturePath('sanity-template-minimal')
       })
 
-      expect(result.errors.length).toBe(0)
+      expect(result.type).toBe('valid')
     })
 
     it('should validate simple manifest', async () => {
@@ -49,7 +49,7 @@ describe('check', () => {
         basedir: fixturePath('sanity-template-simple')
       })
 
-      expect(result.errors.length).toBe(0)
+      expect(result.type).toBe('valid')
     })
 
     it('should validate advanced manifest', async () => {
@@ -57,7 +57,7 @@ describe('check', () => {
         basedir: fixturePath('sanity-template-advanced')
       })
 
-      expect(result.errors.length).toBe(0)
+      expect(result.type).toBe('valid')
     })
   })
 })
