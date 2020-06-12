@@ -52,6 +52,7 @@
     "jest": "^24.8.0",
     "prettier": "^2.0.5",
     "prettier-eslint-cli": "^4.7.1",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.3",
+    "zod": "^1.7.0"
   }
 }
