@@ -44,8 +44,10 @@ module.exports = {
   async check(basedir) {
     const result = await api.check({basedir})
 
-    if (result.errors.length) {
-      console.error(result.errors.map(err => err.stack).join('\n'))
+    if (result.type === 'invalid') {
+      console.error(
+        result.errors.map(err => `${err.path.join(' → ') || '→ '}: ${err.message}`).join('\n')
+      )
       throw new Error('validation failed')
     }
 

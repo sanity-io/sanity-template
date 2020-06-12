@@ -5,7 +5,7 @@ const {runNpmInstall} = require('./utils/runNpmInstall')
 
 const path = require('path')
 
-function generateLockFiles({basedir}) {
+function generateLockFiles(basedir) {
   if (!basedir) {
     throw new Error('Missing basedir')
   }
