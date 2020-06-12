@@ -1,2 +1,2 @@
-export {v0} from './manifest/v0'
 export {v1} from './manifest/v1'
+export {v2} from './manifest/v2'
