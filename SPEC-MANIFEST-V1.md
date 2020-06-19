@@ -1,4 +1,4 @@
-# Sanity template manifest specification (v0)
+# Sanity template manifest specification (v1)
 
 Sanity template repositories must contain a file called `sanity-template.json`, and follow this specification.
 
@@ -7,13 +7,13 @@ Sanity template repositories must contain a file called `sanity-template.json`, 
 
 ## Top-level fields
 
-### `version: 0`
+### `version: 1`
 
-The `version` key must be included in the manifest, and be set to `0`:
+The `version` key must be included in the manifest, and be set to `1`:
 
 ```json
 {
-  "version": 0
+  "version": 1
 }
 ```
 
@@ -83,8 +83,14 @@ See [`Technology`](#technology) for type definition.
 ### `DeploymentDeclaration`
 
 ```ts
-interface DeploymentDeclaration {
-  id: string;
+interface DeploymentOption {
+  provider: string
+  config: {
+    base?: string;
+    dir?: string;
+    cmd?: string;
+    sites: [
+
   type: "studio" | "web";
   title: string;
   description: string;
@@ -98,10 +104,13 @@ interface DeploymentDeclaration {
     };
     requirements?: NetlifyRequirement[];
   };
+]
+  }
   // optional fields
   previewMedia?: Media;
   requiredCorsOrigins?: SanityCorsOriginDeclaration[];
   requiredTokens?: SanityTokenDeclaration[];
+
 }
 ```
 
