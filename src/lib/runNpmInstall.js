@@ -1,4 +1,3 @@
-
 const {exec} = require('./exec')
 const resolveBin = require('resolve-bin')
 
