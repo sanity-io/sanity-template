@@ -30,6 +30,7 @@ function printUsage() {
   Commands:
     build
     check
+    migrate
     lockfiles
     watch`
 }
