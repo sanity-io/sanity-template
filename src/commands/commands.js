@@ -1,3 +1,5 @@
+const fs = require('fs')
+
 const chalk = require('chalk')
 const path = require('path')
 const api = require('./index')
@@ -38,6 +40,35 @@ module.exports = {
     console.log('Generated lockfiles in: ')
     directories.forEach(info =>
       console.log(`\t${chalk.green(path.join(info.dir, '/package-lock.json'))}`)
+    )
+  },
+
+  async migrate(basedir) {
+    if (!basedir) throw new Error('missing basedir')
+
+    const manifestFileName = 'sanity-template.json'
+    const manifestPath = path.resolve(basedir, manifestFileName)
+    let manifest
+    try {
+      manifest = require(manifestPath)
+    } catch (requireErr) {
+      throw new Error('missing file: sanity-template.json')
+    }
+    const migrated = api.migrate({manifest})
+    if (migrated.version === manifest.version) {
+      console.log(
+        'The manifest at ./%s is already at current version (v%d)',
+        manifestFileName,
+        manifest.version
+      )
+      return
+    }
+    fs.writeFileSync(manifestPath, JSON.stringify(migrated, null, 2) + '\n')
+    console.log(
+      'Successfully migrated ./%s from v%d to v%d',
+      manifestFileName,
+      manifest.version,
+      migrated.version
     )
   },
 
