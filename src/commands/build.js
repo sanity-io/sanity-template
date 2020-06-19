@@ -1,6 +1,6 @@
 const path = require('path')
-const {readDirRecursive, readJsonFile} = require('./lib/fs')
-const {buildFile} = require('./lib/buildFile')
+const {readDirRecursive, readJsonFile} = require('./utils/fs')
+const {buildFile} = require('./utils/buildFile')
 
 async function build({basedir, templateValuesPath}) {
   let templateValues = {}

@@ -5,7 +5,7 @@
   "bin": {
     "sanity-template": "./bin/sanity-template.js"
   },
-  "main": "src/index.js",
+  "main": "src/commands/index.js",
   "scripts": {
     "format": "prettier --write \"src/**/*{.js,.ts}\"",
     "test": "jest --verbose"

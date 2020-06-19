@@ -1,10 +1,10 @@
 const fs = require('fs')
 const path = require('path')
 const {from, merge, of} = require('rxjs')
-const {concatMap, filter, map, switchMap, tap} = require('rxjs/operators')
-const {buildFile} = require('./lib/buildFile')
-const {watchFiles} = require('./lib/watchFiles')
-const {readJsonFile, rimraf} = require('./lib/fs')
+const {concatMap, filter, map, switchMap} = require('rxjs/operators')
+const {buildFile} = require('./utils/buildFile')
+const {watchFiles} = require('./utils/watchFiles')
+const {readJsonFile, rimraf} = require('./utils/fs')
 
 function watch(opts) {
   if (!opts.basedir) {

@@ -1,7 +1,7 @@
 const path = require('path')
-const api = require('../src')
-const cli = require('../src/commands')
-const {rimraf} = require('../src/lib/fs')
+const api = require('../index')
+const cli = require('../commands')
+const {rimraf} = require('../utils/fs')
 
 const fixturePath = p => path.join(__dirname, 'fixtures', p)
 
