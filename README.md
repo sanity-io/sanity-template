@@ -12,7 +12,7 @@ npm install sanity-template --save-dev
 
 WARNING: Not ready for public consumption
 
-- [Template manifest specification (v0)](SPEC-MANIFEST-V0.md)
+- [Template manifest specification](SPEC-MANIFEST.md)
 
 ## Documentation
 
