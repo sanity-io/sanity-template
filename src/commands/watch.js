@@ -8,8 +8,7 @@ const {readJsonFile, rimraf} = require('./utils/fs')
 
 function watch(opts) {
   if (!opts.basedir) {
-    reject(new Error('Missing basedir'))
-    return
+    throw new Error('Missing basedir')
   }
 
   const templateDir = path.resolve(opts.basedir, 'template')
