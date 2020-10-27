@@ -2,8 +2,6 @@ import * as v1 from './v1'
 import * as v2 from './v2'
 import {current} from '..'
 
-export const keys = Object.keys as <T>(o: T) => Extract<keyof T, string>[]
-
 const convertDeployments = (deployments: v1.Deployment[]): v2.NetlifyDeployment => {
   return {
     provider: 'netlify',
