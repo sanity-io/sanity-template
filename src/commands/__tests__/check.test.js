@@ -16,11 +16,16 @@ describe('check', () => {
         mockFn(err)
       }
 
-      expect(mockFn.mock.calls[0][0].message).toEqual('missing file: sanity-template.json')
+      expect(mockFn.mock.calls[0][0].message).toMatch(`Unable to resolve template manifest from current working directory`)
     })
 
     it('should validate minimal manifest', async () => {
       const basedir = fixturePath('sanity-template-minimal')
+      await cli.check(basedir)
+    })
+
+    it('should validate .sanity-template/manifest.json', async () => {
+      const basedir = fixturePath('sanity-dot-template')
       await cli.check(basedir)
     })
 

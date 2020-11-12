@@ -2,15 +2,32 @@ const path = require('path')
 const v1 = require('../manifest/v1')
 const v2 = require('../manifest/v2')
 
+function tryRequire(dir) {
+  try {
+    return require(dir)
+  } catch (err) {}
+  return null
+}
+
+const MANIFEST_PATHS = ['./sanity-template.json', './.sanity-template/manifest.json']
+
 async function check({basedir}) {
   if (!basedir) throw new Error('missing basedir')
 
   let manifest
+  MANIFEST_PATHS.map(dir => path.resolve(basedir, dir)).some(dir => {
+    manifest = tryRequire(dir)
+    if (manifest) {
+      return true
+    }
+  })
 
-  try {
-    manifest = require(path.resolve(basedir, 'sanity-template.json'))
-  } catch (requireErr) {
-    throw new Error('missing file: sanity-template.json')
+  if (!manifest) {
+    throw new Error(
+      `Unable to resolve template manifest from current working directory. Attempted to read from the following locations:\n - ${MANIFEST_PATHS.join(
+        '\n - '
+      )}`
+    )
   }
 
   switch (manifest.version) {
