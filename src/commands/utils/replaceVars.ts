@@ -1,18 +1,19 @@
-const Entities = require('html-entities')
-const {isPlainObject} = require('lodash')
-const Mustache = require('mustache')
-const path = require('path')
+import type {JsonValue} from 'type-fest'
+import Entities from 'html-entities'
+import {isPlainObject} from 'lodash'
+
+import Mustache from 'mustache'
+import path from 'path'
 
 const entities = new Entities.AllHtmlEntities()
 
-function deepRenderStrings(value, templateVars) {
-  const name = typeof value
-  if (name === 'string') {
+function deepRenderStrings(value: JsonValue, templateVars: JsonValue): JsonValue | null {
+  if (typeof value === 'string') {
     const renderedString = Mustache.render(value, templateVars, {}, ['<#<', '>#>'])
     return entities.decode(renderedString)
   }
 
-  if (name === 'boolean' || name === 'number') {
+  if (typeof value === 'boolean' || typeof value === 'number') {
     return value
   }
 
@@ -20,16 +21,17 @@ function deepRenderStrings(value, templateVars) {
     return value.map(item => deepRenderStrings(item, templateVars))
   }
 
-  if (isPlainObject(value)) {
-    const renderedObject = {}
+  if (value !== null && isPlainObject(value)) {
+    const renderedObject: Record<string, JsonValue> = {}
     Object.keys(value).forEach(key => {
       renderedObject[key] = deepRenderStrings(value[key], templateVars)
     })
     return renderedObject
   }
+  return null
 }
 
-function replaceVars(filePath, content, templateVars) {
+export function replaceVars(filePath: string, content: string, templateVars: Record<string, any>) {
   const isJson = path.extname(filePath) === '.json'
   if (isJson) {
     const renderedJson = deepRenderStrings(JSON.parse(content), templateVars)
@@ -37,8 +39,4 @@ function replaceVars(filePath, content, templateVars) {
   }
 
   return Mustache.render(content, templateVars, {}, ['<#<', '>#>'])
-}
-
-module.exports = {
-  replaceVars
 }

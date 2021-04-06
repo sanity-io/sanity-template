@@ -1,13 +1,11 @@
-const {parseAsCurrent} = require('../index')
+import {parseAsCurrent} from '../index'
+import {kebabCase} from 'lodash'
+import {temporaryTransformPackage} from './utils/temporaryTransformPackage'
+import {runNpmInstall} from './utils/runNpmInstall'
 
-const {kebabCase} = require('lodash')
+import path from 'path'
 
-const {temporaryTransformPackage} = require('./utils/temporaryTransformPackage')
-const {runNpmInstall} = require('./utils/runNpmInstall')
-
-const path = require('path')
-
-function generateLockFiles({basedir}) {
+export function generateLockFiles({basedir}: {basedir: string}) {
   if (!basedir) {
     throw new Error('Missing basedir')
   }
@@ -24,7 +22,7 @@ function generateLockFiles({basedir}) {
 
   const manifest = parseResult.manifest
 
-  if (manifest.deployment.provider !== 'netlify') {
+  if (manifest.deployment?.provider !== 'netlify') {
     console.log('Not a netlify deployment, skipping lockfiles generation.')
     return
   }
@@ -57,5 +55,3 @@ function generateLockFiles({basedir}) {
     })
   )
 }
-
-module.exports = generateLockFiles

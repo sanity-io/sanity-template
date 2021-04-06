@@ -1,8 +1,15 @@
-const path = require('path')
-const {readDirRecursive, readJsonFile} = require('./utils/fs')
-const {buildFile} = require('./utils/buildFile')
+import path from 'path'
+import {readJsonFile} from './utils/fs'
 
-async function build({basedir, templateValuesPath}) {
+import {buildFile} from './utils/buildFile'
+
+export async function build({
+  basedir,
+  templateValuesPath
+}: {
+  basedir: string
+  templateValuesPath?: string
+}) {
   let templateValues = {}
 
   if (templateValuesPath) {
@@ -30,5 +37,3 @@ async function build({basedir, templateValuesPath}) {
 
   return relativeFiles
 }
-
-module.exports = build

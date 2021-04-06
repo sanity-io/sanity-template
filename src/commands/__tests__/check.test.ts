@@ -1,8 +1,8 @@
-const path = require('path')
-const api = require('../')
-const cli = require('../commands')
+import path from 'path'
+import * as api from '../'
+import * as cli from '../commands'
 
-const fixturePath = p => path.join(__dirname, 'fixtures', p)
+const fixturePath = (p: string) => path.join(__dirname, 'fixtures', p)
 
 describe('check', () => {
   describe('CLI', () => {
@@ -16,7 +16,9 @@ describe('check', () => {
         mockFn(err)
       }
 
-      expect(mockFn.mock.calls[0][0].message).toMatch(`Unable to resolve template manifest from current working directory`)
+      expect(mockFn.mock.calls[0][0].message).toMatch(
+        `Unable to resolve template manifest from current working directory`
+      )
     })
 
     it('should validate minimal manifest', async () => {

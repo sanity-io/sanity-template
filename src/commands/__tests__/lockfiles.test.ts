@@ -1,8 +1,8 @@
-const path = require('path')
-const api = require('../')
-const {rimraf} = require('../utils/fs')
+import path from 'path'
+import * as api from '../'
+import {rimraf} from '../utils/fs'
 
-const fixturePath = p => path.join(__dirname, 'fixtures', p)
+const fixturePath = (p: string) => path.join(__dirname, 'fixtures', p)
 
 const clean = async () => {
   await rimraf(fixturePath('sanity-template-simple/build'))

@@ -1,6 +1,5 @@
 import * as z from 'zod'
 import {sanityCorsOrigin, tokenSpec} from './common'
-import {shareReplay} from 'rxjs/operators'
 
 const envVarMap = z.object({
   projectId: z.array(z.string()),

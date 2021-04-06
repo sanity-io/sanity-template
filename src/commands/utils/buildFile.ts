@@ -1,9 +1,15 @@
+import type {JsonValue} from 'type-fest'
+
 const {isBinarySync} = require('istextorbinary')
 const path = require('path')
 const {copyFile, mkdirp, readFile, writeFile} = require('./fs')
 const {replaceVars} = require('./replaceVars')
 
-async function buildFile(fromPath, toPath, templateValues) {
+export async function buildFile(
+  fromPath: string,
+  toPath: string,
+  templateValues: Record<string, JsonValue>
+) {
   const dir = path.dirname(toPath)
 
   await mkdirp(dir)
@@ -22,5 +28,3 @@ async function buildFile(fromPath, toPath, templateValues) {
     return copyFile(fromPath, toPath)
   }
 }
-
-module.exports = {buildFile}

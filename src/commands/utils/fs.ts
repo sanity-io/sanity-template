@@ -1,25 +1,25 @@
-const fs = require('fs')
-const _mkdirp = require('mkdirp')
-const path = require('path')
-const _rimraf = require('rimraf')
-const {promisify} = require('util')
+import fs from 'fs'
+import _mkdirp from 'mkdirp'
+import path from 'path'
+import _rimraf from 'rimraf'
+import {promisify} from 'util'
 
-const copyFile = promisify(fs.copyFile)
-const lstat = promisify(fs.lstat)
-const mkdirp = promisify(_mkdirp)
-const readdir = promisify(fs.readdir)
-const readFile = promisify(fs.readFile)
-const rimraf = promisify(_rimraf)
-const writeFile = promisify(fs.writeFile)
+export const copyFile = promisify(fs.copyFile)
+export const lstat = promisify(fs.lstat)
+export const mkdirp = promisify(_mkdirp)
+export const readdir = promisify(fs.readdir)
+export const readFile = promisify(fs.readFile)
+export const rimraf = promisify(_rimraf)
+export const writeFile = promisify(fs.writeFile)
 
-async function isDirectory(filePath) {
+export async function isDirectory(filePath: string) {
   const stats = await lstat(filePath)
   return stats.isDirectory()
 }
 
-async function readDirRecursive(dir) {
+export async function readDirRecursive(dir: string) {
   const files = await readdir(dir)
-  const filesInfo = await Promise.all(
+  const filesInfo: string[][] = await Promise.all(
     files.map(file => {
       const filePath = path.resolve(dir, file)
 
@@ -31,22 +31,10 @@ async function readDirRecursive(dir) {
     })
   )
 
-  return filesInfo.reduce((acc, arr) => acc.concat(arr), [])
+  return filesInfo.reduce((acc: string[], arr) => acc.concat(arr), [])
 }
 
-async function readJsonFile(filePath) {
+export async function readJsonFile(filePath: string) {
   const buf = await readFile(filePath)
   return JSON.parse(buf.toString('utf-8'))
-}
-
-module.exports = {
-  copyFile,
-  isDirectory,
-  lstat,
-  mkdirp,
-  readDirRecursive,
-  readFile,
-  readJsonFile,
-  rimraf,
-  writeFile
 }

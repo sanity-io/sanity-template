@@ -1,12 +1,13 @@
-const fs = require('fs')
-const path = require('path')
-const {from, merge, of} = require('rxjs')
-const {concatMap, filter, map, switchMap} = require('rxjs/operators')
-const {buildFile} = require('./utils/buildFile')
-const {watchFiles} = require('./utils/watchFiles')
-const {readJsonFile, rimraf} = require('./utils/fs')
+import fs from 'fs'
 
-function watch(opts) {
+import {readJsonFile, rimraf} from './utils/fs'
+import {watchFiles} from './utils/watchFiles'
+import {buildFile} from './utils/buildFile'
+import {concatMap, filter, map, switchMap} from 'rxjs/operators'
+import {from, merge, of} from 'rxjs'
+import path from 'path'
+
+export function watch(opts: {basedir: string; templateValuesPath: string}) {
   if (!opts.basedir) {
     throw new Error('Missing basedir')
   }
@@ -72,5 +73,3 @@ function watch(opts) {
 
   return merge(builtFile$, unlinkedFile$)
 }
-
-module.exports = watch

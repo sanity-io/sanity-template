@@ -1,6 +1,6 @@
 import * as z from 'zod'
 
-import {templateMedia, sanityCorsOrigin, tokenSpec} from './common'
+import {sanityCorsOrigin, templateMedia, tokenSpec} from './common'
 
 export const providerRequirement = z.literal('build-hook') // Add future requirement flags here
 export type ProviderRequirement = z.infer<typeof providerRequirement>

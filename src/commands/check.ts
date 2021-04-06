@@ -1,8 +1,10 @@
-const path = require('path')
-const v1 = require('../manifest/v1')
-const v2 = require('../manifest/v2')
+import {Invalid, Valid} from '../manifest/common/error'
+import * as v1 from '../manifest/v1'
+import * as v2 from '../manifest/v2'
 
-function tryRequire(dir) {
+import path from 'path'
+
+function tryRequire(dir: string) {
   try {
     return require(dir)
   } catch (err) {}
@@ -11,10 +13,14 @@ function tryRequire(dir) {
 
 const MANIFEST_PATHS = ['./sanity-template.json', './.sanity-template/manifest.json']
 
-async function check({basedir}) {
+export async function check({
+  basedir
+}: {
+  basedir: string
+}): Promise<Valid<v1.TemplateManifest> | Valid<v2.TemplateManifest> | Invalid> {
   if (!basedir) throw new Error('missing basedir')
 
-  let manifest
+  let manifest: any
   MANIFEST_PATHS.map(dir => path.resolve(basedir, dir)).some(dir => {
     manifest = tryRequire(dir)
     if (manifest) {
@@ -39,9 +45,8 @@ async function check({basedir}) {
     default:
       return {
         type: 'invalid',
-        errors: [{path: [], message: `invalid manifest version: ${manifest.version}`}]
+        errors: [{path: [], message: `invalid manifest version: ${manifest.version}`}],
+        manifest
       }
   }
 }
-
-module.exports = check
