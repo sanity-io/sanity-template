@@ -5,9 +5,14 @@ import * as api from './index'
 import {ManifestError} from '../manifest/common/error'
 
 export async function build(basedir: string, params: {templateValues?: string} = {}) {
-  return api.build({basedir, templateValuesPath: params.templateValues}).then(files => {
-    files.forEach(file => console.log(`${chalk.green('build')} ${file}`))
-  })
+  const files = await api.build({basedir, templateValuesPath: params.templateValues})
+  files.forEach(file => console.log(`${chalk.green('build')} ${file}`))
+  if (!params.templateValues) {
+    console.log()
+    console.warn('Warning: No template values file path given. The built project may not be properly configured. Provide a template values file with `--template-values-path=path/to/template-values.json`')
+  }
+  console.log()
+  console.log('Build complete. Run the created project with `cd build && npm start`')
 }
 
 export function watch(basedir: string, params: {templateValues: string}) {
