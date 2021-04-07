@@ -2,6 +2,9 @@ import path from 'path'
 import {readJsonFile} from './utils/fs'
 
 import {buildFile} from './utils/buildFile'
+import {LEGACY_MANIFEST_PATH, MANIFEST_PATHS, resolveManifestPath} from './utils/resolveManifestPath'
+import {readSourceFiles} from './utils/readSourceFiles'
+import {toArray} from 'rxjs/operators'
 
 export async function build({
   basedir,
@@ -20,20 +23,25 @@ export async function build({
     throw new Error('Missing basedir')
   }
 
-  const templateDir = path.resolve(basedir, 'template')
+  const manifestPath = resolveManifestPath(basedir)
+  if (!manifestPath) {
+    console.error(
+      'Unable to resolve manifest from directory: %s. Not found: %s',
+      basedir,
+      MANIFEST_PATHS.join(', ')
+    )
+  }
+
+  const templateDir =
+    manifestPath === LEGACY_MANIFEST_PATH ? path.resolve(basedir, 'template') : basedir
+
   const buildDir = path.resolve(basedir, 'build')
 
-  const files = await readDirRecursive(templateDir)
+  const files = await readSourceFiles(templateDir).pipe(toArray()).toPromise()
 
-  // Ignore paths containing `/node_modules/`
-  const includeFiles = files.filter(file => !file.match(/\/node_modules\//))
-
-  // Get relative paths
-  const relativeFiles = includeFiles.map(f => path.relative(templateDir, f))
-
-  for (const f of relativeFiles) {
+  for (const f of files) {
     await buildFile(path.resolve(templateDir, f), path.resolve(buildDir, f), templateValues)
   }
 
-  return relativeFiles
+  return files
 }
