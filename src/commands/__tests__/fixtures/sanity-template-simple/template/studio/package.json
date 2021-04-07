@@ -1,6 +1,6 @@
 {
   "name": "<#< repository.name >#>-studio",
   "dependencies": {
-    "@sanity/cli": "^0.141.6"
+    "is-number": "^7.0.0"
   }
 }

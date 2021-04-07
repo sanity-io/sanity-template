@@ -12,38 +12,45 @@ const clean = async () => {
   await rimraf(fixturePath('sanity-template-simple/template/studio/package-lock.json'))
 }
 
-// timeout: 5 mins
-jest.setTimeout(1000 * 60 * 5)
+const timeout = 1000 * 60 * 5
 
 beforeEach(clean)
 afterEach(clean)
 
 describe('lockfiles', () => {
   describe('CLI', () => {
-    it('should genereate lockfiles for simple template', async () => {
-      const basedir = fixturePath('sanity-template-simple')
+    it(
+      'should genereate lockfiles for simple template',
+      async () => {
+        const basedir = fixturePath('sanity-template-simple')
 
-      await api.generateLockFiles({basedir})
+        await api.generateLockFiles({basedir})
 
-      const pkgLock = require(path.resolve(basedir, 'template/package-lock.json'))
-      const studioPkgLock = require(path.resolve(basedir, 'template/studio/package-lock.json'))
+        const pkgLock = require(path.resolve(basedir, 'template/package-lock.json'))
+        const studioPkgLock = require(path.resolve(basedir, 'template/studio/package-lock.json'))
 
-      expect(pkgLock.name).toBe('sanity-simple')
-      expect(studioPkgLock.name).toBe('sanity-simple-studio')
-    })
+        expect(pkgLock.name).toBe('sanity-simple')
+        expect(studioPkgLock.name).toBe('sanity-simple-studio')
+      },
+      timeout
+    )
   })
 
   describe('Node.js API', () => {
-    it('should genereate lockfiles for simple template', async () => {
-      const basedir = fixturePath('sanity-template-simple')
+    it(
+      'should genereate lockfiles for simple template',
+      async () => {
+        const basedir = fixturePath('sanity-template-simple')
 
-      await api.generateLockFiles({basedir})
+        await api.generateLockFiles({basedir})
 
-      const pkgLock = require(path.resolve(basedir, 'template/package-lock.json'))
-      const studioPkgLock = require(path.resolve(basedir, 'template/studio/package-lock.json'))
+        const pkgLock = require(path.resolve(basedir, 'template/package-lock.json'))
+        const studioPkgLock = require(path.resolve(basedir, 'template/studio/package-lock.json'))
 
-      expect(pkgLock.name).toBe('sanity-simple')
-      expect(studioPkgLock.name).toBe('sanity-simple-studio')
-    })
+        expect(pkgLock.name).toBe('sanity-simple')
+        expect(studioPkgLock.name).toBe('sanity-simple-studio')
+      },
+      timeout
+    )
   })
 })
