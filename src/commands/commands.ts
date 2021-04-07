@@ -9,7 +9,7 @@ export async function build(basedir: string, params: {templateValues?: string} =
   files.forEach(file => console.log(`${chalk.green('build')} ${file}`))
   if (!params.templateValues) {
     console.log()
-    console.warn('Warning: No template values file path given. The built project may not be properly configured. Provide a template values file with `--template-values-path=path/to/template-values.json`')
+    console.warn('Warning: No template values file path given. The built project may not be properly configured. Provide a template values file with `--template-values=path/to/template-values.json`')
   }
   console.log()
   console.log('Build complete. Run the created project with `cd build && npm start`')
