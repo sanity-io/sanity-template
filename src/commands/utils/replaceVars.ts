@@ -1,16 +1,14 @@
 import type {JsonValue} from 'type-fest'
-import Entities from 'html-entities'
+import {decode} from 'html-entities'
 import {isPlainObject} from 'lodash'
 
 import Mustache from 'mustache'
 import path from 'path'
 
-const entities = new Entities.AllHtmlEntities()
-
 function deepRenderStrings(value: JsonValue, templateVars: JsonValue): JsonValue | null {
   if (typeof value === 'string') {
     const renderedString = Mustache.render(value, templateVars, {}, ['<#<', '>#>'])
-    return entities.decode(renderedString)
+    return decode(renderedString)
   }
 
   if (typeof value === 'boolean' || typeof value === 'number') {
