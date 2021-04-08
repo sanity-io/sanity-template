@@ -33,6 +33,8 @@ npx sanity-template check
 
 This will copy files from the `template` directory into the `build` (which should be gitignored). The files in the `build` directory will have template variables replaced (`<#<varName>#>`).
 
+
+
 ### Node.js API
 
 #### `build`
@@ -87,6 +89,16 @@ check({
       console.error(errors)
     }
   })
+```
+
+### Migrate from v1 to v2 
+
+#### `migrate`
+
+The `migrate` method is a helper function to convert a template from v1 to v2. When run in the CLI, it will modify the `sanity-template.json` file to match the syntax required for v2.
+
+```sh
+npx sanity-template migrate
 ```
 
 ## License
