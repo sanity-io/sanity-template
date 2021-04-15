@@ -16,7 +16,7 @@ export async function build(basedir: string, params: {templateValues?: string} =
 }
 
 export function watch(basedir: string, params: {templateValues: string}) {
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     api.watch({basedir, templateValuesPath: params.templateValues}).subscribe({
       next: msg => {
         switch (msg.type) {
