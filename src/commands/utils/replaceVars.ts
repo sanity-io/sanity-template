@@ -1,17 +1,18 @@
-import type {JsonValue} from 'type-fest'
-import {decode} from 'html-entities'
 import {isPlainObject} from 'lodash'
-
 import Mustache from 'mustache'
-import path from 'path'
+import type {JsonValue} from 'type-fest'
 
-function deepRenderStrings(value: JsonValue, templateVars: JsonValue): JsonValue | null {
-  if (typeof value === 'string') {
-    const renderedString = Mustache.render(value, templateVars, {}, ['<#<', '>#>'])
-    return decode(renderedString)
+type TemplateVariables = Record<string, any>
+
+Mustache.escape = (text: string) => text
+
+function deepRenderStrings(value: any, templateVars: TemplateVariables): JsonValue {
+  const name = typeof value
+  if (name === 'string') {
+    return renderMustache(value, templateVars)
   }
 
-  if (typeof value === 'boolean' || typeof value === 'number') {
+  if (name === 'boolean' || name === 'number') {
     return value
   }
 
@@ -19,8 +20,8 @@ function deepRenderStrings(value: JsonValue, templateVars: JsonValue): JsonValue
     return value.map(item => deepRenderStrings(item, templateVars))
   }
 
-  if (value !== null && isPlainObject(value)) {
-    const renderedObject: Record<string, JsonValue> = {}
+  if (isPlainObject(value)) {
+    const renderedObject: {[key: string]: any} = {}
     Object.keys(value).forEach(key => {
       renderedObject[key] = deepRenderStrings(value[key], templateVars)
     })
@@ -29,12 +30,8 @@ function deepRenderStrings(value: JsonValue, templateVars: JsonValue): JsonValue
   return null
 }
 
-export function replaceVars(filePath: string, content: string, templateVars: Record<string, any>) {
-  const isJson = path.extname(filePath) === '.json'
-  if (isJson) {
-    const renderedJson = deepRenderStrings(JSON.parse(content), templateVars)
-    return JSON.stringify(renderedJson, null, 2)
-  }
+export const renderJSON = (content: string, templateVars: TemplateVariables) =>
+  JSON.stringify(deepRenderStrings(JSON.parse(content), templateVars), null, 2)
 
-  return Mustache.render(content, templateVars, {}, ['<#<', '>#>'])
-}
+export const renderMustache = (content: string, templateVars: TemplateVariables) =>
+  Mustache.render(content, templateVars, {}, ['<#<', '>#>'])
