@@ -16,7 +16,7 @@ export const rimraf = promisify(_rimraf)
 export const writeFile = promisify(fs.writeFile)
 
 function resolveIgnores(dir: string): string[] {
-  if (dir === '/') {
+  if (dir === path.parse(dir).root) {
     return []
   }
   const candidate = path.resolve(dir, '.gitignore')
